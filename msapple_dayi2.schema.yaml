@@ -4,7 +4,7 @@
 schema:
   schema_id: msapple_dayi2
   name: 蘋果小姐的大易2碼
-  version: "0.1"
+  version: "2.0 alpha"
   author:
     - Dabinn
   description: |
@@ -15,11 +15,11 @@ schema:
 switches:
   - name: ascii_mode
     reset: 0
-    states: [ 中文, 西文 ]
+    states: [ 中文, 英文 ]
   - name: full_shape
-    states: [ 半角, 全角 ]
+    states: [ 半形, 全形 ]
   - name: simplification
-    states: [ 漢字, 汉字 ]
+    states: [ 繁體, 简体 ]
   - name: ascii_punct
     states: [ 。，, ．， ]
 
@@ -32,7 +32,7 @@ engine:
     - punctuator
     - selector
     - navigator
-#    - express_editor
+#    - express_editor  #按Enter直接輸出英文，會跟方向鍵選字+enter送字方式衝突
     - fluency_editor
   segmentors:
     - ascii_segmentor
@@ -44,12 +44,15 @@ engine:
   translators:
     - echo_translator                     
     - punct_translator
-    - reverse_lookup_translator
     - script_translator
+    - reverse_lookup_translator
   filters:
     - simplifier
     - uniquifier
 
+menu:
+  alternative_select_keys: "1234567890"	#選字鍵，使用預設ctrl+123456789
+ 
 speller:
   alphabet: '0123456789/.,;abcdefghijklmnopqrstuvwxyz'
   delimiter: " "
@@ -64,6 +67,8 @@ translator:
   enable_user_dict: true
   #spelling_hints: 3
   #max_phrase_length: 3	#最大 自動 成詞 詞長
+  preedit_format:
+    - "xlit|,./0123456789;abcdefghijklmnopqrstuvwxyz|力點竹金言牛目四王門田米足虫人馬七日一土手鳥木月立女雨魚口耳石工革糸艸禾山水火心|"
 
 custom_phrase:
   dictionary: ""
@@ -80,7 +85,7 @@ reverse_lookup:
   suffix: "'"
   tips: 〔注音〕
   preedit_format:
-    - "xlit|,./0123456789;ABCDEFGHIJKLMNOPQRSTUVWXYZ|力點竹金言牛目四王門田米足虫人馬七日一土手鳥木月立女雨魚口耳石工革糸艸禾山水火心|"
+    - "xlit|1qaz2wsxedcrfv5tgbyhnujm8ik,9ol.0p;/- 6347'|ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦˉˊˇˋ˙ |"
 
 punctuator:
   import_preset: symbols
